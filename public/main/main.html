@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-3 col-lg-2">
+            <ul class="nav nav-pills nav-stacked">
+                <!-- Software menu -->
+                <li ng-class="{ active: software === vm.currSoftware }" ng-repeat="software in vm.softwares">
+                    <a href ng-click="vm.setSoftware(software)">{{software.display}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-xs-12 col-md-9 col-lg-10">
+            <h1> {{vm.currSoftware.display}} shortcuts </h1>
+            Filter by Category :
+            <select ng-model="vm.currCategory" ng-options="cat as cat.display for cat in vm.categories">
+            </select>
+            <br>
+            There is : {{ (shortcuts | filter: { softwareId: software.softwareId, category:
+            categoriesCtrl.category.key}).length }} rows
+
+            <!-- Shortcuts table -->
+            <div class="divtable accordion-xs">
+                <div class="tr headings">
+                    <div class="th shortcutskeys">Shortcut Keys</div>
+                    <div class="th description">Description</div>
+                    <div class="th category">Category</div>
+                </div>
+                <div class="tr"
+                     ng-repeat="shortcut in vm.shortcuts | filter:  { softwareId: vm.currSoftware.softwareId, category: vm.currCategory.key} ">
+                    <div class="td shortcutskeys accordion-xs-toggle">
+                        <img ng-src="assets/img/software/{{vm.currSoftware.key}}.png" width="25" height="25">
+                        {{shortcut.shortcutKeys.toUpperCase()}}
+                    </div>
+                    <div class="accordion-xs-collapse">
+                        <div class="inner">
+                            <div class="td description">{{shortcut.description}}</div>
+                            <div class="td category">{{vm.currCategory.display}}</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row mt">
+                <div class="col-lg-8">
+                    <h1>Use {{software.display}} faster.</h1>
+
+                    <p>Learning the shortcuts for the application , will make you powerful, faster
+                        and
+                        impressive
+                        programmer.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

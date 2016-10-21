@@ -1,0 +1,1 @@
+This is the website shortcuts center repository.
