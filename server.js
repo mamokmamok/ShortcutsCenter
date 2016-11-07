@@ -10,14 +10,18 @@ console.log("Server Starting running : server.js");
 // Configure the local strategy for use by Passport.
 passport.use(new Strategy(
     function (username, password, cb) {
+        //console.log("Passport findByUsername() - { username : " + username + "}");
         db.users.findByUsername(username, function (err, user) {
             if (err) {
+                //console.log("Passport findByUsername() - Error");
                 return cb(err);
             }
             if (!user) {
+                //console.log("Passport findByUsername() - User is null");
                 return cb(null, false);
             }
             if (user.password != password) {
+                //console.log("Passport findByUsername() - Password wrong");
                 return cb(null, false);
             }
             return cb(null, user);
@@ -27,10 +31,12 @@ passport.use(new Strategy(
 
 // Configure Passport authenticated session persistence.
 passport.serializeUser(function (user, cb) {
+    console.log("Passport serializeUser()")
     cb(null, user.username);
 });
 
 passport.deserializeUser(function (id, cb) {
+    console.log("Passport deserializeUser()")
     db.users.findByUsername(id, function (err, user) {
         if (err) {
             return cb(err);
@@ -49,35 +55,43 @@ app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({extended: true}));
 app.use(require('express-session')({secret: 'keyboard cat', resave: false, saveUninitialized: false}));
 
-app.use(express.static(path.join(__dirname, 'public')));
+// Add the public folder of the vies as static express files.
+app.use(express.static(path.join(__dirname, 'public'), {redirect: false}));
+
 // Initialize Passport and restore authentication state, if any, from the session.
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Define routes.
-//===================================
-//              Login Methods
-//===================================
+// Define routes:
+
+// Send index html file to the client
 app.get('/',
     function (req, res) {
         res.sendfile('public/index.html');
     });
 
+//===================================
+//              Login Methods
+//===================================
+
 app.get('/login',
     function (req, res) {
-        res.render('login');
-    });
-
-
-app.post('/login',
-    passport.authenticate('local', {failureRedirect: '/login'}),
-    function (req, res) {
-        res.redirect('/');
+        console.log("[GET] /login");
+        res.sendfile('public/login/login.html');
     });
 
 app.get('/logout',
     function (req, res) {
+        console.log("[GET] /logout");
         req.logout();
+        res.redirect('/');
+    });
+
+
+app.post('/login',
+    passport.authenticate('local', {failureRedirect: '/login', successRedirect: '/admin'}),
+    function (req, res) {
+        console.log("[POST] /login");
         res.redirect('/');
     });
 
@@ -85,10 +99,11 @@ app.get('/admin',
     // Don't delete
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res) {
-        db.shortucts.getAllShortcuts(function (shortcuts) {
+        console.log("[GET] /admin");
+        db.shortucts.getAllShortcuts(1, function (shortcuts) {
             //res.redirect('/admin');
-            //res.render('/shortcuts',{ shortcuts: shortcuts });
-            res.render('shortcuts', {shortcuts: shortcuts});
+            //res.render('shortcuts', {shortcuts: shortcuts});
+            res.send({shortcuts: shortcuts});
         })
     });
 

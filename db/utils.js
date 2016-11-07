@@ -28,6 +28,10 @@ exports.getAllObject = function (type, cb) {
         i = result.length;
         if (doc != null) {
             i++;
+
+            // Remove at this point the ObjectId from mongo
+            doc._id = "";
+
             result.push(doc);
         } else {
             console.log("Found : " + i + " " + type)
@@ -39,8 +43,9 @@ exports.getAllObject = function (type, cb) {
 exports.findByFiled = function (type, filedname, value, cb) {
     var query = {};
     query[filedname] = value;
-    console.log("inside function findByFiled() [utils.js] - {" + filedname + ":" + value + "}");
+    console.log("inside function findByFiled() [utils.js] type : " + type + "- {" + filedname + ":" + value + "}");
     dbManager.collection(type).find(query).toArray(function (err, docs) {
+        docs.forEach(function(doc) { delete doc._id });
         cb(docs);
     });
 }
@@ -73,5 +78,13 @@ exports.delete = function (type, id, cb) {
             cb(null);
         });
     })
+};
+
+exports.toMap = function (arr){
+    var mapResult= arr.reduce(function(map, obj) {
+        map[obj.id] = obj;
+        return map;
+    }, {});
+    return mapResult;
 };
 

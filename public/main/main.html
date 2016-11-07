@@ -25,7 +25,7 @@
                     <div class="th category">Category</div>
                 </div>
                 <div class="tr"
-                     ng-repeat="shortcut in vm.shortcuts | filter:  { softwareId: vm.currSoftware.softwareId, category: vm.currCategory.key} ">
+                     ng-repeat="shortcut in vm.shortcuts | filter:  { softwareId: vm.currSoftware.softwareId, categoryId: vm.currCategory.id} ">
                     <div class="td shortcutskeys accordion-xs-toggle">
                         <img ng-src="assets/img/software/{{vm.currSoftware.key}}.png" width="25" height="25">
                         {{shortcut.shortcutKeys.toUpperCase()}}

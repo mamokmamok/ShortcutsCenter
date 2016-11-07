@@ -25,8 +25,8 @@ exports.findById = function(id, cb) {
 
 exports.findByUsername = function(username, cb) {
   console.log("inside function findByUsername() [user.js]");
-  utils.findByFiled('user','username', username, function(err, users) {
-    if (users.length !== 1) {
+  utils.findByFiled('user','username', username, function(users) {
+    if (!users || users.length !== 1) {
       cb("User not found", null);
     }
     else{
