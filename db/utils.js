@@ -1,8 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
-var books = [];
 var assert = require('assert'); // Understanding why we useing the assert
-var url = "mongodb://52.39.154.243:27017/";
-var dbName = "MamokDB";
+var url = "mongodb://guest:ShortcutCenterAdmin@52.38.32.116:27017/";
+var dbName = "shortcuts";
 var dbManager;
 
 if (!dbManager) {

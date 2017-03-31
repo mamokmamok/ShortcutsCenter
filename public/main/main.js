@@ -30,7 +30,7 @@ function MainCtrl($scope, dataService) {
   }
 
   function getCategories() {
-    return dataService.getCategories(vm.currSoftware.softwareId)
+    return dataService.getCategories(vm.currSoftware.id)
         .then(function(data) {
           vm.categories = data;
           vm.categories[0] && (vm.currCategory = vm.categories[0]);
@@ -39,7 +39,7 @@ function MainCtrl($scope, dataService) {
   }
 
   function getShortcuts() {
-    return dataService.getShortcuts(vm.currSoftware.softwareId)
+    return dataService.getShortcuts(vm.currSoftware.id)
         .then(function(data) {
           vm.shortcuts = data;
           return vm.shortcuts;

@@ -4,6 +4,8 @@ var Strategy = require('passport-local').Strategy;
 var db = require('./db/index');
 var path = require('path');
 
+//var log = require('consolelog');
+
 // init DB
 console.log("Server Starting running : server.js");
 
@@ -55,7 +57,7 @@ app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({extended: true}));
 app.use(require('express-session')({secret: 'keyboard cat', resave: false, saveUninitialized: false}));
 
-// Add the public folder of the vies as static express files.
+// Add the public folder of the views as static express files.
 app.use(express.static(path.join(__dirname, 'public'), {redirect: false}));
 
 // Initialize Passport and restore authentication state, if any, from the session.

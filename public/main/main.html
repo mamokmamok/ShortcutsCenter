@@ -4,18 +4,18 @@
             <ul class="nav nav-pills nav-stacked">
                 <!-- Software menu -->
                 <li ng-class="{ active: software === vm.currSoftware }" ng-repeat="software in vm.softwares">
-                    <a href ng-click="vm.setSoftware(software)">{{software.display}}</a>
+                    <a href ng-click="vm.setSoftware(software)">{{software.name}}</a>
                 </li>
             </ul>
         </div>
         <div class="col-xs-12 col-md-9 col-lg-10">
-            <h1> {{vm.currSoftware.display}} shortcuts </h1>
+            <h1> {{vm.currSoftware.name}} shortcuts </h1>
+            <!-- Categories menu -->
             Filter by Category :
-            <select ng-model="vm.currCategory" ng-options="cat as cat.display for cat in vm.categories">
+            <select ng-model="vm.currCategory" ng-options="cat.name for cat in vm.categories track by cat.id    " >
             </select>
             <br>
-            There is : {{ (shortcuts | filter: { softwareId: software.softwareId, category:
-            categoriesCtrl.category.key}).length }} rows
+            There is : {{( vm.shortcuts | filter : { software_id : vm.currSoftware.software_id, category_id : vm.currCategory.id }).length }} rows
 
             <!-- Shortcuts table -->
             <div class="divtable accordion-xs">
@@ -24,16 +24,15 @@
                     <div class="th description">Description</div>
                     <div class="th category">Category</div>
                 </div>
-                <div class="tr"
-                     ng-repeat="shortcut in vm.shortcuts | filter:  { softwareId: vm.currSoftware.softwareId, categoryId: vm.currCategory.id} ">
+                <div class="tr" ng-repeat="shortcut in vm.shortcuts | filter:  { software_id: vm.currSoftware.software_id, category_id: vm.currCategory.id } ">
                     <div class="td shortcutskeys accordion-xs-toggle">
-                        <img ng-src="assets/img/software/{{vm.currSoftware.key}}.png" width="25" height="25">
-                        {{shortcut.shortcutKeys.toUpperCase()}}
+                        <img ng-src="assets/img/software/{{vm.currSoftware.name}}.png" width="25" height="25">
+                        {{ shortcut.keys.join(" + ") }}
                     </div>
                     <div class="accordion-xs-collapse">
                         <div class="inner">
-                            <div class="td description">{{shortcut.description}}</div>
-                            <div class="td category">{{vm.currCategory.display}}</div>
+                            <div class="td description">{{shortcut.desc}}</div>
+                            <div class="td category">{{vm.currCategory.name}}</div>
                         </div>
 
                     </div>
@@ -43,7 +42,7 @@
 
             <div class="row mt">
                 <div class="col-lg-8">
-                    <h1>Use {{software.display}} faster.</h1>
+                    <h1>Use {{software.name}} faster.</h1>
 
                     <p>Learning the shortcuts for the application , will make you powerful, faster
                         and
