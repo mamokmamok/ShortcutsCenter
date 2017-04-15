@@ -29,8 +29,8 @@ function dataService($http) {
         }
     }
 
-    function getCategories(softwareId) {
-        return $http.get('softwares/' + softwareId + '/categories/')
+    function getCategories(software_id) {
+        return $http.get('softwares/' + software_id + '/categories/')
             .then(getCategoriesComplete)
             .catch(getCategoriesFailed);
 
@@ -43,8 +43,8 @@ function dataService($http) {
         }
     }
 
-    function getShortcuts(softwareId) {
-        return $http.get('softwares/' + softwareId + '/shortcuts/')
+    function getShortcuts(software_id) {
+        return $http.get('softwares/' + software_id + '/shortcuts/')
             .then(getShortcutsComplete)
             .catch(getShortcutsFailed);
 

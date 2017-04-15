@@ -12,6 +12,7 @@ angular.module('myApp.main', ['ngRoute'])
 
 .controller('MainCtrl', MainCtrl);
 
+
 MainCtrl.$inject = ['$scope', 'dataService'];
 
 function MainCtrl($scope, dataService) {

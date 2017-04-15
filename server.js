@@ -121,18 +121,18 @@ app.get('/softwares',
         })
     });
 
-app.get('/softwares/:softwareId/categories',
+app.get('/softwares/:software_id/categories',
     function (req, res) {
-        db.shortucts.getAllCategories(req.params.softwareId, function (categories) {
+        db.shortucts.getAllCategories(req.params.software_id, function (categories) {
             res.send({categories: categories});
         })
     });
 
-app.get('/softwares/:softwareId/shortcuts',
+app.get('/softwares/:software_id/shortcuts',
     // Don't delete
     //require('connect-ensure-login').ensureLoggedIn(),
     function (req, res) {
-        db.shortucts.getAllShortcuts(req.params.softwareId, function (shortcuts) {
+        db.shortucts.getAllShortcuts(req.params.software_id, function (shortcuts) {
             res.send({shortcuts: shortcuts});
         })
     });
