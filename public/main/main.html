@@ -10,12 +10,12 @@
         </div>
         <div class="col-xs-12 col-md-9 col-lg-10">
             <h1> {{vm.currSoftware.name}} shortcuts </h1>
-            <!-- Categories menu -->
             Filter by Category :
-            <select ng-model="vm.currCategory" ng-options="cat.name for cat in vm.categories track by cat.id    " >
+            <select ng-model="vm.currCategory" ng-options="cat as cat.name for cat in vm.categories">
             </select>
             <br>
-            There is : {{( vm.shortcuts | filter : { software_id : vm.currSoftware.software_id, category_id : vm.currCategory.id }).length }} rows
+            There is : {{ (shortcuts | filter: { software_id: software.id, category:
+            categoriesCtrl.category.software_id}).length }} rows
 
             <!-- Shortcuts table -->
             <div class="divtable accordion-xs">
@@ -24,10 +24,11 @@
                     <div class="th description">Description</div>
                     <div class="th category">Category</div>
                 </div>
-                <div class="tr" ng-repeat="shortcut in vm.shortcuts | filter:  { software_id: vm.currSoftware.software_id, category_id: vm.currCategory.id } ">
+                <div class="tr"
+                     ng-repeat="shortcut in vm.shortcuts | filter:  { software_id: vm.currSoftware.software_id, category_id: vm.currCategory.id} ">
                     <div class="td shortcutskeys accordion-xs-toggle">
                         <img ng-src="assets/img/software/{{vm.currSoftware.name}}.png" width="25" height="25">
-                        {{ shortcut.keys.join(" + ") }}
+                        {{shortcut.keys.join(" + ").toUpperCase()}}
                     </div>
                     <div class="accordion-xs-collapse">
                         <div class="inner">
@@ -45,7 +46,7 @@
                     <h1>Use {{software.name}} faster.</h1>
 
                     <p>Learning the shortcuts for the application , will make you powerful, faster
-                        and
+                        and};
                         impressive
                         programmer.</p>
                 </div>
