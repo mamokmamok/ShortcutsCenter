@@ -1,17 +1,27 @@
+
+// ------------------------------------------------------------------
+//
+//              Server Class
+//              ------------
+//
+//  This is the node js server - www.shortcutscenter.com
+//  Git repository : github.com/mamokmamok/ShortcutsCenter.git
+//  Author : Idan Mamok
+//
+// ------------------------------------------------------------------
+
+
 var express = require('express');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var db = require('./db/index');
 var path = require('path');
 
-//var log = require('consolelog');
-
 // init DB
-console.log("Server Starting running : server.js");
-
 // Configure the local strategy for use by Passport.
 passport.use(new Strategy(
     function (username, password, cb) {
+
         //console.log("Passport findByUsername() - { username : " + username + "}");
         db.users.findByUsername(username, function (err, user) {
             if (err) {
@@ -29,6 +39,7 @@ passport.use(new Strategy(
             return cb(null, user);
         });
     }));
+console.log("Server Starting running : server.js");
 
 
 // Configure Passport authenticated session persistence.
