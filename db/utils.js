@@ -1,6 +1,10 @@
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert'); // Understanding why we useing the assert
-var url = "mongodb://guest:ShortcutsCenterAdmin@52.38.32.116:27017/";
+//
+//              Development
+//      TODO : move to configruation
+//var url = "mongodb://guest:ShortcutsCenterAdmin@52.38.32.116:27017/";
+var url = "mongodb://guest:ShortcutsCenterAdmin@localhost:27017/";
 var dbName = "shortcuts";
 var dbManager;
 

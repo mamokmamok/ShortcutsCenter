@@ -173,4 +173,4 @@ app.post('/shortcuts',
         res.redirect('/admin');
     });
 
-app.listen(3000);
+app.listen(8080);
